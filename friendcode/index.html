@@ -98,9 +98,12 @@
   </header>
 
   <div class="container">
-    <div class="filter-bar">
-      <input type="text" id="filterUsername" placeholder="ユーザー名で検索" />
-      <input type="text" id="filterGame" placeholder="ゲーム名で検索" />
+    <select id="filterUsername">
+      <option value="">全ユーザー</option>
+    </select>
+    <select id="filterGame">
+      <option value="">全ゲーム</option>
+    </select>
       <button onclick="filterList()">検索</button>
       <button onclick="resetFilter()">リセット</button>
     </div>
@@ -144,6 +147,7 @@
 
     window.addEventListener("DOMContentLoaded", async () => {
       await loadFriendCodes();
+      await loadFilterOptions();
     });
   </script>
 </body>

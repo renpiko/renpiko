@@ -44,3 +44,25 @@ async function registerFriendCode(username, game, friendCode) {
     alert("送信中にエラーが発生しました。");
   }
 }
+
+async function loadFilterOptions() {
+  const res = await fetch(`${scriptURL}?unique=true`);
+  const { users, games } = await res.json();
+
+  const userSelect = document.getElementById("filterUsername");
+  const gameSelect = document.getElementById("filterGame");
+
+  users.forEach(name => {
+    const option = document.createElement("option");
+    option.value = name;
+    option.textContent = name;
+    userSelect.appendChild(option);
+  });
+
+  games.forEach(name => {
+    const option = document.createElement("option");
+    option.value = name;
+    option.textContent = name;
+    gameSelect.appendChild(option);
+  });
+}
