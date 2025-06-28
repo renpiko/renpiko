@@ -69,3 +69,11 @@ async function loadFilterOptions() {
     gameSelect.appendChild(option);
   });
 }
+
+function showLoading() {
+  document.getElementById("loadingOverlay").style.display = "flex";
+}
+
+function hideLoading() {
+  document.getElementById("loadingOverlay").style.display = "none";
+}

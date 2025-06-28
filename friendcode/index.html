@@ -112,6 +112,20 @@
     <h1>フレンドコード一覧</h1>
   </header>
 
+  <div id="loadingOverlay" style="
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(255, 255, 255, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    z-index: 1000;
+    display: none;">
+    読み込み中...
+  </div>
+
   <div class="container filter-bar">
     <select id="filterUsername">
       <option value="">全ユーザー</option>
@@ -161,8 +175,10 @@
     }
 
     window.addEventListener("DOMContentLoaded", async () => {
+      showLoading();
       await loadFriendCodes();
       await loadFilterOptions();
+      hideLoading();
     });
   </script>
 </body>
