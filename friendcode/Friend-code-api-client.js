@@ -28,10 +28,11 @@ async function loadFriendCodes() {
 
 // ➕ 新規登録用 (POST)
 async function registerFriendCode(username, game, friendCode) {
+  const body = JSON.stringify({ username, game, friendCode })
   try {
     const res = await fetch(scriptURL, {
       method: "POST",
-      body: JSON.stringify({ username, game, friendCode }),
+      body: body,
       headers: { "Content-Type": "application/x-www-form-urlencoded", "Accept": "application/json" },
     });
 
