@@ -44,7 +44,6 @@
     form input, form button {
       width: 100%;
       padding: 0.75rem;
-      margin-bottom: 1rem;
       font-size: 1rem;
       border-radius: var(--radius);
       border: 1px solid #ccc;
@@ -91,6 +90,11 @@
       border-color: #4a90e2;
       box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
     }
+
+    input:required, .gameArea{
+      margin-bottom: 1rem;
+    }
+
   </style>
   <script src="Friend-code-api-client.js"></script>
 </head>
@@ -103,14 +107,15 @@
     <div class="card">
       <form id="registerForm">
         <input type="text" id="username" placeholder="ユーザー名" required />
-        <label for="gameSelect">ゲーム名</label>
-        <select id="gameSelect" name="game">
-          <option value="">選択してください</option>
-          <!-- JavaScriptで選択肢を追加 -->
-          <option value="__custom__">（新しいゲームを追加）</option>
-        </select>
-        <input type="text" id="customGameInput" name="customGame" placeholder="ゲーム名を入力" style="display: none;" />
-
+        <div class="gameArea">
+          <label for="gameSelect">ゲーム名</label>
+          <select id="gameSelect" name="game">
+            <option value="">選択してください</option>
+            <!-- JavaScriptで選択肢を追加 -->
+            <option value="__custom__">（新しいゲームを追加）</option>
+          </select>
+          <input type="text" id="customGameInput" name="customGame" placeholder="ゲーム名を入力" style="display: none;" />
+        </div>
         <input type="text" id="friendCode" placeholder="フレンドコード" required />
         <button type="submit">登録</button>
       </form>
