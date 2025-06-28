@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>フレンドコード登録</title>
+  <style>
+    :root {
+      --primary: #4a90e2;
+      --bg: #f5f7fb;
+      --card: #ffffff;
+      --text: #333333;
+      --radius: 12px;
+      --shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+    }
+
+    header {
+      background-color: var(--primary);
+      color: white;
+      padding: 1rem 2rem;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 2rem;
+    }
+
+    form input, form button {
+      width: 100%;
+      padding: 0.75rem;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+      border-radius: var(--radius);
+      border: 1px solid #ccc;
+    }
+
+    form button {
+      background: var(--primary);
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    form button:hover {
+      background: #357ABD;
+    }
+
+    .nav-link {
+      display: inline-block;
+      margin-top: 1rem;
+      text-decoration: none;
+      color: var(--primary);
+    }
+  </style>
+  <script src="Friend-code-api-client.js"></script>
+</head>
+<body>
+  <header>
+    <h1>フレンドコード登録</h1>
+  </header>
+
+  <div class="container">
+    <div class="card">
+      <form id="registerForm">
+        <input type="text" id="username" placeholder="ユーザー名" required />
+        <input type="text" id="game" placeholder="ゲーム名" required />
+        <input type="text" id="friendCode" placeholder="フレンドコード" required />
+        <button type="submit">登録</button>
+      </form>
+      <a class="nav-link" href="index.html">← 一覧に戻る</a>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("registerForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const username = document.getElementById("username").value;
+      const game = document.getElementById("game").value;
+      const friendCode = document.getElementById("friendCode").value;
+      // GAS POSTリクエスト送信処理を書く
+      alert(`登録：${username} - ${game} - ${friendCode}`);
+    });
+  </script>
+</body>
+  <script>
+    document.getElementById("registerForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const username = document.getElementById("username").value;
+      const game = document.getElementById("game").value;
+      const friendCode = document.getElementById("friendCode").value;
+      registerFriendCode(username, game, friendCode);
+    });
+  </script>
+</html>
