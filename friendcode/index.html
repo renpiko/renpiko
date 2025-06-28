@@ -104,12 +104,31 @@
       background-size: 1rem;
     }
 
+    .top-action-bar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background-color: var(--bg);
+      padding: 1rem 0;
+      text-align: right;
+    }
+
+    .nav-button {
+      background: var(--primary);
+      color: white;
+      padding: 0.5rem 1.25rem;
+      border-radius: var(--radius);
+      text-decoration: none;
+      font-weight: bold;
+      box-shadow: var(--shadow);
+    }
+
   </style>
   <script src="Friend-code-api-client.js"></script>
 </head>
 <body>
   <header>
-    <h1>フレンドコード一覧</h1>
+    <h1>パンドラ茶屋　電話帳</h1>
   </header>
 
   <div id="loadingOverlay" style="
@@ -135,6 +154,10 @@
     </select>
       <button onclick="filterList()">検索</button>
       <button onclick="resetFilter()">リセット</button>
+    </div>
+
+    <div class="top-action-bar">
+      <a class="nav-button" href="register.html">＋ フレンドコードを登録する</a>
     </div>
 
     <div class="card">
