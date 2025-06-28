@@ -32,7 +32,7 @@ async function registerFriendCode(username, game, friendCode) {
     const res = await fetch(scriptURL, {
       method: "POST",
       body: JSON.stringify({ username, game, friendCode }),
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "'text/plain'" },
     });
 
     const text = await res.text();
