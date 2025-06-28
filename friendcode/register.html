@@ -126,7 +126,6 @@
           <select id="gameSelect" name="game">
             <option value="">選択してください</option>
             <!-- JavaScriptで選択肢を追加 -->
-            <option value="__custom__">（新しいゲームを追加）</option>
           </select>
           <input type="text" id="customGameInput" name="customGame" placeholder="ゲーム名を入力" style="display: none;" />
         </div>
@@ -166,6 +165,7 @@
 
     // ゲーム登録プルダウンの内容取得
     async function populateGameOptions() {
+      showLoading();
       const res = await fetch("https://script.google.com/macros/s/AKfycbxUFj2kbN_vBC9Fs7R0N8kLZ3nqUFEtXcIJJ9jaud9zbXXWLkt6OU8FQThuKpesXjrstQ/exec?unique=true");
       const data = await res.json();
 
@@ -181,11 +181,10 @@
       opt.value = "__custom__";
       opt.textContent = "（新しいゲームを追加）";
       select.appendChild(opt);
+      hideLoading();
     }
 
-    showLoading();
     window.addEventListener("DOMContentLoaded", populateGameOptions);
-    hideLoading();
-
+    
   </script>
 </html>
