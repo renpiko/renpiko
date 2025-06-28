@@ -103,6 +103,20 @@
     <h1>フレンドコード登録</h1>
   </header>
 
+  <div id="loadingOverlay" style="
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(255, 255, 255, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    z-index: 1000;
+    display: none;">
+    ゲーム名取得中...
+  </div>
+
   <div class="container">
     <div class="card">
       <form id="registerForm">
@@ -135,6 +149,7 @@
   </script>
 </body>
   <script>
+    // 登録処理
     document.getElementById("registerForm").addEventListener("submit", function (e) {
       e.preventDefault();
       const username = document.getElementById("username").value;
@@ -142,9 +157,35 @@
       const friendCode = document.getElementById("friendCode").value;
       registerFriendCode(username, game, friendCode);
     });
+
+    // ゲーム登録テキストボックスの表示／非表示
     document.getElementById('gameSelect').addEventListener('change', () => {
       const isCustom = document.getElementById('gameSelect').value === '__custom__';
       document.getElementById('customGameInput').style.display = isCustom ? 'block' : 'none';
     });
+
+    // ゲーム登録プルダウンの内容取得
+    async function populateGameOptions() {
+      const res = await fetch("https://script.google.com/macros/s/AKfycbxUFj2kbN_vBC9Fs7R0N8kLZ3nqUFEtXcIJJ9jaud9zbXXWLkt6OU8FQThuKpesXjrstQ/exec?unique=true");
+      const data = await res.json();
+
+      const select = document.getElementById("gameSelect");
+      data.games.forEach(game => {
+        const opt = document.createElement("option");
+        opt.value = game;
+        opt.textContent = game;
+        select.appendChild(opt);
+      });
+
+      const opt = document.createElement("option");
+      opt.value = "__custom__";
+      opt.textContent = "（新しいゲームを追加）";
+      select.appendChild(opt);
+    }
+
+    showLoading();
+    window.addEventListener("DOMContentLoaded", populateGameOptions);
+    hideLoading();
+
   </script>
 </html>
