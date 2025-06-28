@@ -137,5 +137,9 @@
       const friendCode = document.getElementById("friendCode").value;
       registerFriendCode(username, game, friendCode);
     });
+    document.getElementById('gameSelect').addEventListener('change', () => {
+      const isCustom = document.getElementById('gameSelect').value === '__custom__';
+      document.getElementById('customGameInput').style.display = isCustom ? 'block' : 'none';
+    });
   </script>
 </html>
