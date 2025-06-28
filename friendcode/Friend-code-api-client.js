@@ -1,7 +1,7 @@
 // 📍 HTMLからGASと連携するJavaScript関数セット
 // 🔗 `scriptURL` をGASでデプロイしたウェブアプリURLに書き換えてください
 
-const scriptURL = 'https://script.google.com/macros/s/AKfycbzI3legxpm55A9pU1LuQDhGHBR-49mqb2gH6SmC4jLwcbtX4qg_YegooJyILpCGwdzeXA/exec';
+const scriptURL = 'https://script.google.com/macros/s/AKfycbyaNexip2ZL96qYOr9pXq1m3676jBztG7fQlN8MAAlduVw0NB5WoGZqQrLDKWxFCQFLEg/exec';
 
 // 🔄 一覧データ取得用 (GET)
 async function loadFriendCodes() {
