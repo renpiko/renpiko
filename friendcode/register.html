@@ -81,6 +81,14 @@
       <form id="registerForm">
         <input type="text" id="username" placeholder="ユーザー名" required />
         <input type="text" id="game" placeholder="ゲーム名" required />
+        <label for="gameSelect">ゲーム名</label>
+        <select id="gameSelect" name="game">
+          <option value="">選択してください</option>
+          <!-- JavaScriptで選択肢を追加 -->
+          <option value="__custom__">（新しいゲームを追加）</option>
+        </select>
+        <input type="text" id="customGameInput" name="customGame" placeholder="ゲーム名を入力" style="display: none;" />
+
         <input type="text" id="friendCode" placeholder="フレンドコード" required />
         <button type="submit">登録</button>
       </form>

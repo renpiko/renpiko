@@ -77,3 +77,8 @@ function showLoading() {
 function hideLoading() {
   document.getElementById("loadingOverlay").style.display = "none";
 }
+
+document.getElementById('gameSelect').addEventListener('change', () => {
+  const isCustom = document.getElementById('gameSelect').value === '__custom__';
+  document.getElementById('customGameInput').style.display = isCustom ? 'block' : 'none';
+});
