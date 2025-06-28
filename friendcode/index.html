@@ -141,9 +141,12 @@
       document.getElementById('filterGame').value = '';
       filterList();
     }
-  </script>
-  <script>
-  window.addEventListener("DOMContentLoaded", loadFriendCodes);
+
+    window.addEventListener("DOMContentLoaded", async () => {
+      await loadFriendCodes();
+      document.getElementById("filterUsername").addEventListener("input", filterList);
+      document.getElementById("filterGame").addEventListener("input", filterList);
+    });
   </script>
 </body>
 </html>
