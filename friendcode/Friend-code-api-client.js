@@ -47,7 +47,7 @@ async function registerFriendCode(username, game, friendCode) {
 
 async function loadFilterOptions() {
   const res = await fetch(`${scriptURL}?unique=true`);
-  const { users, games } = await res.json();
+  const data = await res.json();
 
   const userSelect = document.getElementById("filterUsername");
   const gameSelect = document.getElementById("filterGame");
