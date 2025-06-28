@@ -49,6 +49,9 @@ async function loadFilterOptions() {
   const res = await fetch(`${scriptURL}?unique=true`);
   const data = await res.json();
 
+  const users = data.users;
+  const games = data.games;
+
   const userSelect = document.getElementById("filterUsername");
   const gameSelect = document.getElementById("filterGame");
 
