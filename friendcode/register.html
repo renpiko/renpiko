@@ -135,25 +135,18 @@
       <a class="nav-link" href="index.html">← 一覧に戻る</a>
     </div>
   </div>
-
-  <script>
-    document.getElementById("registerForm").addEventListener("submit", function (e) {
-      e.preventDefault();
-      const username = document.getElementById("username").value;
-      const game = document.getElementById("game").value;
-      const friendCode = document.getElementById("friendCode").value;
-      // GAS POSTリクエスト送信処理を書く
-      alert(`登録：${username} - ${game} - ${friendCode}`);
-    });
-  </script>
 </body>
   <script>
     // 登録処理
     document.getElementById("registerForm").addEventListener("submit", function (e) {
       e.preventDefault();
       const username = document.getElementById("username").value;
-      const game = document.getElementById("game").value;
+      let game = document.getElementById("gameSelect").value;
+      if(game == '__custom__'){
+        game = document.getElementById('customGameInput').value;
+      }
       const friendCode = document.getElementById("friendCode").value;
+      alert(`この内容で登録します：${username} - ${game} - ${friendCode}`);
       registerFriendCode(username, game, friendCode);
     });
 
