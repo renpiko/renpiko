@@ -30,6 +30,7 @@ async function loadFriendCodes() {
 async function registerFriendCode(username, game, friendCode) {
   const body = JSON.stringify({ username, game, friendCode })
   try {
+    showRegisting();
     const res = await fetch(scriptURL, {
       method: "POST",
       body: body,
@@ -38,6 +39,7 @@ async function registerFriendCode(username, game, friendCode) {
 
     const text = await res.text();
     alert(text === "Success" ? "登録完了！" : "登録失敗:", text);
+    hideRegisting();
     if (text === "Success") location.href = "index.html";
   } catch (err) {
     console.error("送信エラー:", err);
@@ -71,9 +73,19 @@ async function loadFilterOptions() {
 }
 
 function showLoading() {
+  document.getElementById("loadingOverlay").innerText("\n    読み込み中...\n  ")
   document.getElementById("loadingOverlay").style.display = "flex";
 }
 
 function hideLoading() {
+  document.getElementById("loadingOverlay").style.display = "none";
+}
+
+function showRegisting() {
+  document.getElementById("loadingOverlay").innerText("\n    登録中...\n  ")
+  document.getElementById("loadingOverlay").style.display = "flex";
+}
+
+function hideRegisting() {
   document.getElementById("loadingOverlay").style.display = "none";
 }
