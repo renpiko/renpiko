@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>フレンドコード一覧</title>
+  <style>
+    :root {
+      --primary: #4a90e2;
+      --bg: #f5f7fb;
+      --card: #ffffff;
+      --text: #333333;
+      --radius: 12px;
+      --shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+    }
+
+    header {
+      background-color: var(--primary);
+      color: white;
+      padding: 1rem 2rem;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .filter-bar input {
+      flex: 1;
+      padding: 0.75rem;
+      border: 1px solid #ccc;
+      border-radius: var(--radius);
+    }
+
+    .filter-bar button {
+      padding: 0.75rem 1.5rem;
+      border: none;
+      background: var(--primary);
+      color: white;
+      border-radius: var(--radius);
+      cursor: pointer;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.5rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+
+    th, td {
+      padding: 1rem;
+      text-align: left;
+      border-bottom: 1px solid #eee;
+    }
+
+    th {
+      background-color: #eef3f8;
+    }
+
+    .nav-button {
+      display: inline-block;
+      margin-top: 1rem;
+      background: gray;
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius);
+      text-decoration: none;
+    }
+
+    .filter-bar select {
+      flex: 1;
+      padding: 0.75rem;
+      border: 1px solid #ccc;
+      border-radius: var(--radius);
+      background: white;
+      font-size: 1rem;
+      appearance: none;
+      background-image: url("data:image/svg+xml;utf8,<svg fill='gray' height='16' viewBox='0 0 24 24' width='16' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+      background-repeat: no-repeat;
+      background-position: right 0.75rem center;
+      background-size: 1rem;
+    }
+
+    .top-action-bar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background-color: var(--bg);
+      padding: 1rem 0;
+      text-align: right;
+    }
+
+    .nav-button {
+      background: var(--primary);
+      color: white;
+      padding: 0.5rem 1.25rem;
+      border-radius: var(--radius);
+      text-decoration: none;
+      font-weight: bold;
+      box-shadow: var(--shadow);
+    }
+
+  </style>
+  <script src="Friend-code-api-client.js"></script>
+</head>
+<body>
+  <header>
+    <h1>パンドラ茶屋　電話帳</h1>
+  </header>
+
+  <div id="loadingOverlay" style="
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(255, 255, 255, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    z-index: 1000;
+    display: none;">
+    読み込み中...
+  </div>
+
+  <div class="container filter-bar">
+    <select id="filterUsername">
+      <option value="">全ユーザー</option>
+    </select>
+    <select id="filterGame">
+      <option value="">全ゲーム</option>
+    </select>
+      <button onclick="filterList()">検索</button>
+      <button onclick="resetFilter()">リセット</button>
+    </div>
+
+    <div class="top-action-bar">
+      <a class="nav-button" href="register.html">＋ フレンドコードを登録する</a>
+    </div>
+
+    <div class="card">
+      <table>
+        <thead>
+          <tr>
+            <th>ユーザー名</th>
+            <th>ゲーム</th>
+            <th>フレンドコード</th>
+          </tr>
+        </thead>
+        <tbody id="listBody">
+          <!-- GASで読み込んだデータがここに表示される -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    function filterList() {
+      const username = document.getElementById('filterUsername').value.toLowerCase();
+      const game = document.getElementById('filterGame').value.toLowerCase();
+      const rows = document.querySelectorAll('#listBody tr');
+
+      rows.forEach(row => {
+        const userCell = row.children[0].textContent.toLowerCase();
+        const gameCell = row.children[1].textContent.toLowerCase();
+        row.style.display = (userCell.includes(username) && gameCell.includes(game)) ? '' : 'none';
+      });
+    }
+
+    function resetFilter() {
+      document.getElementById('filterUsername').value = '';
+      document.getElementById('filterGame').value = '';
+      filterList();
+    }
+
+    window.addEventListener("DOMContentLoaded", async () => {
+      showLoading();
+      await loadFriendCodes();
+      await loadFilterOptions();
+      hideLoading();
+    });
+  </script>
+</body>
+</html>

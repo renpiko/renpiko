@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>フレンドコード登録</title>
+  <style>
+    :root {
+      --primary: #4a90e2;
+      --bg: #f5f7fb;
+      --card: #ffffff;
+      --text: #333333;
+      --radius: 12px;
+      --shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+    }
+
+    header {
+      background-color: var(--primary);
+      color: white;
+      padding: 1rem 2rem;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 2rem;
+    }
+
+    form input, form button {
+      width: 100%;
+      padding: 0.75rem;
+      font-size: 1rem;
+      border-radius: var(--radius);
+      border: 1px solid #ccc;
+    }
+
+    form button {
+      background: var(--primary);
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    form button:hover {
+      background: #357ABD;
+    }
+
+    .nav-link {
+      display: inline-block;
+      margin-top: 1rem;
+      text-decoration: none;
+      color: var(--primary);
+    }
+
+    input[type="text"],
+    select {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #ccc;
+      border-radius: 12px;
+      font-size: 1rem;
+      background-color: #fff;
+      box-sizing: border-box;
+      appearance: none;
+      background-image: url("data:image/svg+xml;utf8,<svg fill='gray' height='16' viewBox='0 0 24 24' width='16' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+      background-repeat: no-repeat;
+      background-position: right 0.75rem center;
+      background-size: 1rem;
+    }
+
+    select:focus,
+    input[type="text"]:focus {
+      outline: none;
+      border-color: #4a90e2;
+      box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
+    }
+
+    input:required, .gameArea{
+      margin-bottom: 1rem;
+    }
+
+  </style>
+  <script src="Friend-code-api-client.js"></script>
+</head>
+<body>
+  <header>
+    <h1>フレンドコード登録</h1>
+  </header>
+
+  <div id="loadingOverlay" style="
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(255, 255, 255, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    z-index: 1000;
+    display: none;">
+    ゲーム名取得中...
+  </div>
+
+  <div class="container">
+    <div class="card">
+      <form id="registerForm">
+        <input type="text" id="username" placeholder="ユーザー名" required />
+        <div class="gameArea">
+          <label for="gameSelect">ゲーム名</label>
+          <select id="gameSelect" name="game">
+            <option value="">選択してください</option>
+            <!-- JavaScriptで選択肢を追加 -->
+          </select>
+          <input type="text" id="customGameInput" name="customGame" placeholder="ゲーム名を入力" style="display: none;" />
+        </div>
+        <input type="text" id="friendCode" placeholder="フレンドコード" required />
+        <button type="submit">登録</button>
+      </form>
+      <a class="nav-link" href="index.html">← 一覧に戻る</a>
+    </div>
+  </div>
+</body>
+  <script>
+    // 登録処理
+    document.getElementById("registerForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const username = document.getElementById("username").value;
+      let game = document.getElementById("gameSelect").value;
+      if(game == '__custom__'){
+        game = document.getElementById('customGameInput').value;
+      }
+      const friendCode = document.getElementById("friendCode").value;
+      alert(`この内容で登録します：${username} - ${game} - ${friendCode}`);
+      registerFriendCode(username, game, friendCode);
+    });
+
+    // ゲーム登録テキストボックスの表示／非表示
+    document.getElementById('gameSelect').addEventListener('change', () => {
+      const isCustom = document.getElementById('gameSelect').value === '__custom__';
+      document.getElementById('customGameInput').style.display = isCustom ? 'block' : 'none';
+    });
+
+    // ゲーム登録プルダウンの内容取得
+    async function populateGameOptions() {
+      showLoading();
+      const res = await fetch("https://script.google.com/macros/s/AKfycbxUFj2kbN_vBC9Fs7R0N8kLZ3nqUFEtXcIJJ9jaud9zbXXWLkt6OU8FQThuKpesXjrstQ/exec?unique=true");
+      const data = await res.json();
+
+      const select = document.getElementById("gameSelect");
+      data.games.forEach(game => {
+        const opt = document.createElement("option");
+        opt.value = game;
+        opt.textContent = game;
+        select.appendChild(opt);
+      });
+
+      const opt = document.createElement("option");
+      opt.value = "__custom__";
+      opt.textContent = "（新しいゲームを追加）";
+      select.appendChild(opt);
+      hideLoading();
+    }
+
+    window.addEventListener("DOMContentLoaded", populateGameOptions);
+    
+  </script>
+</html>
