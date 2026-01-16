@@ -73,7 +73,7 @@ async function loadFilterOptions() {
 }
 
 function showLoading() {
-  document.getElementById("loadingOverlay").innerText("\n    読み込み中...\n  ")
+  document.getElementById("loadingOverlay").innerText = "\n    読み込み中...\n  "
   document.getElementById("loadingOverlay").style.display = "flex";
 }
 
@@ -82,7 +82,7 @@ function hideLoading() {
 }
 
 function showRegisting() {
-  document.getElementById("loadingOverlay").innerText("\n    登録中...\n  ")
+  document.getElementById("loadingOverlay").innerText = "\n    登録中...\n  "
   document.getElementById("loadingOverlay").style.display = "flex";
 }
 
