@@ -2,4 +2,4 @@ KRuが勝手に作ってツールです。
 勝手に使っていってください。
 
 --- 
-[フレンドコード連絡板](https://renpiko.github.io/chaya_friend_code/)
+[フレンドコード連絡板](https://renpiko.github.io/friendcode/index.html)
