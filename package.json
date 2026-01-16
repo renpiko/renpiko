@@ -1,0 +1,8 @@
+{
+  "scripts": {
+    "deploy:card-maker": "gh-pages -d card-maker/dist --dest card-maker -b gh-pages"
+  },
+  "devDependencies": {
+    "gh-pages": "^6.3.0"
+  }
+}
